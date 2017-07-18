@@ -1,4 +1,4 @@
 venv/
 Google-web-app/lib/
 appengine-gcs-client/
-
+*.pyc
