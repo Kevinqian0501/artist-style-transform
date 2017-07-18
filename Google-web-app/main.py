@@ -7,7 +7,7 @@ from google.appengine.api import images
 from google.appengine.ext import blobstore
 import base64
 import urllib2
-import storage
+from model import storage
 import json
 from model import firebase_api as fb
 import pytz
@@ -44,12 +44,13 @@ def fetch_img(img_stream, style):
     # img_stream = Image.open(BytesIO(img_stream)).convert('RGB')
     server_url = current_app.config['PREDICTION_SERVICE_URL']
     req = urllib2.Request(server_url, json.dumps({'data': base64.b64encode(img_stream)}),
-                            {'style': style},
                           {'Content-Type': 'application/json'})
     data = {}
     try:
         f = urllib2.urlopen(req)
-        data = base64.b64decode(json.loads(f.read())['data'])
+	json_data = json.loads(f.read());
+	data = json_data['data']
+	data = base64.b64decode(data)
     except urllib2.HTTPError as e:
         logging.exception(e)
 
@@ -71,6 +72,11 @@ def dump_result(bucket_filepath, image_url, new_image_url, style):
         }
     return json.dumps(result)
 
+def get_firebase_url(database):
+    url = '%s/%s.json' % (config.FIREBASE_URL, database)
+    logging.info('jirebase url is logging.info %s', url)
+    return url
+
 @app.route('/', methods=['GET', 'POST'])
 def main():
     if request.method == 'POST':
@@ -82,13 +88,11 @@ def main():
         content_type = img.content_type
         img_url, bucket_filepath = upload_image_file(img_stream, filename, content_type)
 
-        new_img = fetch_img(img_stream, style)
-        
-        img_png = BytesIO()
-        new_img.save(img_png, 'PNG')
-        new_img_stream = img_png.read()
-        new_filename = filename + '-' + style
-        new_content_type = img_png.content_type
+        data = fetch_img(img_stream, style)	        
+	new_img = BytesIO(data)
+        new_img_stream = new_img.read()
+        new_filename = filename.split('.')[0] + '-' + style + '.' + filename.split('.')[1]
+        new_content_type = content_type
         new_img_url, new_bucket_filepath = upload_image_file(new_img_stream, new_filename, new_content_type)
 
     	result = dump_result(bucket_filepath, img_url, new_img_url, style)
