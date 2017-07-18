@@ -1,7 +1,7 @@
 from flask import Flask, current_app, request, jsonify
 import io
 import json
-#import model
+import model
 import base64
 from PIL import Image
 import numpy as np

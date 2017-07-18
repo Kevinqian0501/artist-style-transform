@@ -17,7 +17,7 @@ def get_rgb_np(img_in):
     img_np = np.array(img)
     return get_img(img_np)
 
-## Evaluate image
+## Trans image
 def rundeeplearning(img_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
    
     img = get_rgb_np(img) 
@@ -36,7 +36,7 @@ def rundeeplearning(img_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
         saver = tf.train.Saver()
         # Load 
         saver.restore(sess, checkpoint_dir)
-        X = np.zeros(batch_shape, dtype=np.float32))
+        X = np.zeros(batch_shape, dtype=np.float32)
         X[0] = img
 
         _preds = sess.run(preds, feed_dict={img_placeholder:X})
