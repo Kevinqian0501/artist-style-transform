@@ -19,7 +19,7 @@ def style_transform():
     except KeyError:
         return jsonify(status_code='400', msg='Bad Request'), 400
 
-   # current_app.logger.info('Style: %s', style)
+    #### current_app.logger.info('Style: %s', style)
     
     data = base64.b64decode(data)  #Decode a Base64 encoded string.
     #img_in = io.BytesIO(data)
