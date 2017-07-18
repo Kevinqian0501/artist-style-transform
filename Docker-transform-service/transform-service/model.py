@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow as tf
 import transform
+import io
 from PIL import Image, ImageOps
 
 ## need 3 dims img
@@ -13,15 +14,15 @@ def get_img(src, img_size=False):
 
 ## get 3d, np and rgb img
 def get_rgb_np(img_in):
-    img = Image.open(img).convert('RGB')
+    img = Image.open(img_in).convert('RGB')
     img_np = np.array(img)
     return get_img(img_np)
 
 ## Trans image
 def rundeeplearning(img_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
    
-    img = get_rgb_np(img) 
-    img_shape = get_img(img_np).shape
+    img = get_rgb_np(img_in) 
+    img_shape = get_img(img).shape
 
 
     g = tf.Graph()
@@ -40,5 +41,9 @@ def rundeeplearning(img_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
         X[0] = img
 
         _preds = sess.run(preds, feed_dict={img_placeholder:X})
-        out_img = np.clip(_preds[0], 0, 255).astype(np.uint8)
-        return Image.fromarray(out_img)
+        img_np = np.clip(_preds[0], 0, 255).astype(np.uint8)
+        img_out = Image.fromarray(img_np)
+        buffer = io.BytesIO()
+        img_out.save(buffer, format="PNG")
+	
+        return buffer
