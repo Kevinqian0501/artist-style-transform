@@ -8,7 +8,7 @@ import numpy as np
 import logging
 
 app = Flask(__name__)
-
+logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/', methods=['POST'])
 def style_transform():
@@ -21,13 +21,16 @@ def style_transform():
 
     #### current_app.logger.info('Style: %s', style)
     
-    data = base64.b64decode(data)  #Decode a Base64 encoded string.
-    img_in = io.BytesIO(data)
+    data_dec = base64.b64decode(data)  #Decode a Base64 encoded string.
+    img_in = io.BytesIO(data_dec)
     
-    img_out = model.rundeeplearning(img_in)
+    img_out = model.rundeeplearning(img_in, "Model/la_muse.ckpt")
 
-    data_out = base64.b64encode(img_out)  #Decode a Base64 encoded string.    
-    return json.dumps({'data': data})
+   
+    data_out = base64.b64encode(img_out.getvalue()).decode()  #encode a Base64 encoded string.    
+    #logging.info(data_out)
+   
+    return json.dumps({'data': data_out})
 
 
 if __name__ == '__main__':
