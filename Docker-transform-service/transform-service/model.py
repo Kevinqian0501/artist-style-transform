@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-import transform
+#import transform
 from PIL import Image, ImageOps
 
 ## need 3 dims img
