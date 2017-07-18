@@ -1,8 +1,10 @@
 import os
-import numpy as np
+import config
+import logging
 from flask import current_app, Flask, render_template, request
 from io import BytesIO
-from PIL import Image, ImageOps
+from google.appengine.api import images
+from google.appengine.ext import blobstore
 import base64
 import urllib2
 import storage
@@ -11,6 +13,11 @@ from model import firebase_api as fb
 import pytz
 import time
 import datetime
+
+
+app = Flask(__name__)
+app.config.from_object(config)
+logging.basicConfig(level=logging.DEBUG)
 
 ## upload img to bucket, return url and bucket_filepath
 def upload_image_file(stream, filename, content_type):
@@ -34,11 +41,10 @@ def upload_image_file(stream, filename, content_type):
 
 ## send img and style to trans-service
 def fetch_img(img_stream, style):
-    img_stream = Image.open(BytesIO(img_stream)).convert('RGB')
-    
+    # img_stream = Image.open(BytesIO(img_stream)).convert('RGB')
     server_url = current_app.config['PREDICTION_SERVICE_URL']
     req = urllib2.Request(server_url, json.dumps({'data': base64.b64encode(img_stream)}),
-                            {'style': style}
+                            {'style': style},
                           {'Content-Type': 'application/json'})
     data = {}
     try:
@@ -69,7 +75,7 @@ def dump_result(bucket_filepath, image_url, new_image_url, style):
 def main():
     if request.method == 'POST':
         img = request.files.get('image')
-        style = request.
+        style = "cloud"
 
         img_stream = img.read()
         filename = img.filename

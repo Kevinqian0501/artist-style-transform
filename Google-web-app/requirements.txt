@@ -12,3 +12,4 @@ functools32==3.2.3.post2
 pytz==2017.2
 python-firebase==1.2
 oauth2client==4.1.0
+numpy==1.12.0
