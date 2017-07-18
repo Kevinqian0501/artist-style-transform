@@ -49,7 +49,9 @@ def fetch_img(img_stream, style):
     data = {}
     try:
         f = urllib2.urlopen(req)
-        data = base64.b64decode(json.loads(f.read())['data'])
+	json_data = json.loads(f.read());
+	data = jason_data['data']
+	data = base64.b64decode(data)
     except urllib2.HTTPError as e:
         logging.exception(e)
 
@@ -83,12 +85,11 @@ def main():
         img_url, bucket_filepath = upload_image_file(img_stream, filename, content_type)
 
         new_img = fetch_img(img_stream, style)
-        
-        img_png = BytesIO()
-        new_img.save(img_png, 'PNG')
-        new_img_stream = img_png.read()
+	        
+	new_img = io.BytesIO(new_img)
+        new_img_stream = new_img.read()
         new_filename = filename + '-' + style
-        new_content_type = img_png.content_type
+        new_content_type = new_img.content_type
         new_img_url, new_bucket_filepath = upload_image_file(new_img_stream, new_filename, new_content_type)
 
     	result = dump_result(bucket_filepath, img_url, new_img_url, style)
