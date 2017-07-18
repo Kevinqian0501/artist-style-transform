@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-#import transform
+import transform
 from PIL import Image, ImageOps
 
 ## need 3 dims img
@@ -11,11 +11,19 @@ def get_img(src, img_size=False):
  
    return img
 
+## get 3d, np and rgb img
+def get_rgb_np(img_in):
+    img = Image.open(img).convert('RGB')
+    img_np = np.array(img)
+    return get_img(img_np)
+
 ## Evaluate image
-def rundeeplearning(data_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
-    img = get_img(data_in)
-    img = Image.open(BytesIO(request.files['imagefile'].read())).convert('RGB')
-    img_shape = img.shape
+def rundeeplearning(img_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
+   
+    img = get_rgb_np(img) 
+    img_shape = get_img(img_np).shape
+
+
     g = tf.Graph()
     soft_config = tf.ConfigProto(allow_soft_placement=True)
     soft_config.gpu_options.allow_growth = True
@@ -28,10 +36,9 @@ def rundeeplearning(data_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
         saver = tf.train.Saver()
         # Load 
         saver.restore(sess, checkpoint_dir)
-        X = np.zeros(batch_shape, dtype=np.float32)
-        img = get_img(data_in)
-        assert img.shape == img_shape
+        X = np.zeros(batch_shape, dtype=np.float32))
         X[0] = img
+
         _preds = sess.run(preds, feed_dict={img_placeholder:X})
         out_img = np.clip(_preds[0], 0, 255).astype(np.uint8)
         return Image.fromarray(out_img)
