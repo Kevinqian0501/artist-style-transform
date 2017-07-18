@@ -7,7 +7,7 @@ from google.appengine.api import images
 from google.appengine.ext import blobstore
 import base64
 import urllib2
-import storage
+from model import storage
 import json
 from model import firebase_api as fb
 import pytz
