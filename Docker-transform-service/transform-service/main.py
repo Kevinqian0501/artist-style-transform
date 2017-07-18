@@ -1,9 +1,11 @@
-from flask import Flask, current_app, request, json
+from flask import Flask, current_app, request, jsonify
 import io
-import model
+import json
+#import model
 import base64
 from PIL import Image
 import numpy as np
+import logging
 
 app = Flask(__name__)
 
@@ -13,17 +15,19 @@ def style_transform():
     data = {}
     try:
         data = request.get_json()['data']
-        style = request.get_json()['style']
+       # style = request.get_json()['style']
     except KeyError:
         return jsonify(status_code='400', msg='Bad Request'), 400
 
-    data = base64.b64decode(data)  #Decode a Base64 encoded string.
-
-    image = Image.open(io.BytesIO(data).convert('RGB')
-    in_img = np.array(img)
-    new_img = model.style_transform(in_img, style)
+   # current_app.logger.info('Style: %s', style)
     
-    return json.dumps({'data': base64.b64encode(new_img)})
+    data = base64.b64decode(data)  #Decode a Base64 encoded string.
+    img_in = io.BytesIO(data)
+    
+    img_out = model.rundeeplearning(img_in)
+
+    data_out = base64.b64encode(img_out)  #Decode a Base64 encoded string.    
+    return json.dumps({'data': data})
 
 
 if __name__ == '__main__':
