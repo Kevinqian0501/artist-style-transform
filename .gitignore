@@ -3,3 +3,5 @@ Google-web-app/lib/
 appengine-gcs-client/
 *.pyc
 Google-web-app/*.pyc
+Google-web-app/config.py
+config.py
