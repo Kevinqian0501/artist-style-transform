@@ -43,7 +43,7 @@ def upload_image_file(stream, filename, content_type):
 def fetch_img(img_stream, style):
     # img_stream = Image.open(BytesIO(img_stream)).convert('RGB')
     server_url = current_app.config['PREDICTION_SERVICE_URL']
-    req = urllib2.Request(server_url, json.dumps({'data': base64.b64encode(img_stream),'style':'la_muse.ckpt'}),
+    req = urllib2.Request(server_url, json.dumps({'data': base64.b64encode(img_stream),'style': style}),
                           {'Content-Type': 'application/json'})
     data = {}
     try:
@@ -81,30 +81,33 @@ def get_firebase_url(database):
 def main():
     if request.method == 'POST':
         img = request.files.get('image')
-        style = "cloud"
+        style = 'la_muse.ckpt'
 
         img_stream = img.read()
-        data = fetch_img(img_stream, style)	        
-
         filename = img.filename
         content_type = img.content_type
+
+        #fetch new style img data from service
+        data = fetch_img(img_stream, style)	        
+
+        #store cobtent img in bucket
         img_url, bucket_filepath = upload_image_file(img_stream, filename, content_type)
 
+        #store style img in bucket
 	new_img = BytesIO(data)
         new_img_stream = new_img.read()
-        new_filename = filename.split('.')[0] + '-' + style + '.' + filename.split('.')[1]
+        new_filename = style.split('.')[0] + '-'+ filename
         new_content_type = content_type
         new_img_url, new_bucket_filepath = upload_image_file(new_img_stream, new_filename, new_content_type)
 
+        #store imgs url and timestampe in firebase
     	result = dump_result(bucket_filepath, img_url, new_img_url, style)
-
     	content = fb.firebase_patch(get_firebase_url('results'), result)
 
-        #return render_template('view.html', image_url=img_url, predictions=predictions['predictions'])
         return render_template(
             'view.html', 
             image_url=img_url, new_image_url = new_img_url,
-            style = style
+            style = style.split('.')[0]
         )    
     return render_template('form.html')
 
