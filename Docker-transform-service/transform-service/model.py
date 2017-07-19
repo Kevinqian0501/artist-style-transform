@@ -15,6 +15,7 @@ def get_img(src, img_size=False):
 ## get 3d, np and rgb img
 def get_rgb_np(img_in):
     img = Image.open(img_in).convert('RGB')
+    img = ImageOps.fit(img, (400, 400), Image.ANTIALIAS)
     img_np = np.array(img)
     return get_img(img_np)
 

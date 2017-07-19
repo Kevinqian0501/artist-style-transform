@@ -24,7 +24,9 @@ def style_transform():
     data_dec = base64.b64decode(data)  #Decode a Base64 encoded string.
     img_in = io.BytesIO(data_dec)
     
+    #style = 'la_muse.ckpt'
     style = "Model/"+ style;
+    
     img_out = model.rundeeplearning(img_in, style)
 
    
