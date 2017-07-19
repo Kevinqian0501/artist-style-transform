@@ -43,11 +43,11 @@ def upload_image_file(stream, filename, content_type):
 def fetch_img(img_stream, style):
     # img_stream = Image.open(BytesIO(img_stream)).convert('RGB')
     server_url = current_app.config['PREDICTION_SERVICE_URL']
-    req = urllib2.Request(server_url, json.dumps({'data': base64.b64encode(img_stream)}),
+    req = urllib2.Request(server_url, json.dumps({'data': base64.b64encode(img_stream),'style':'la_muse.ckpt'}),
                           {'Content-Type': 'application/json'})
     data = {}
     try:
-        f = urllib2.urlopen(req)
+        f = urllib2.urlopen(req, timeout=60)
 	json_data = json.loads(f.read());
 	data = json_data['data']
 	data = base64.b64decode(data)
