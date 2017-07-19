@@ -6,11 +6,46 @@
 	<h3>{{action}}Please select an image</h3>
 	<form method="POST" enctype="multipart/form-data">
  	 <div class="form-group">
- 	   <label for="image">Image</label>
 	    <input type="file" name="image" id="image" class="form-control"/>
 	  </div>
-
-	  <button type="submit" class="btn btn-success">Run</button>
+          <div>
+          <div class="radio">
+                  <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="la_muse.ckpt" checked>
+                   <em>La muse , 1935 </em> by Pablo Picasso | Style: Cubism, Surrealism 
+                </label>
+           </div>
+           <div class="radio">
+                  <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="rain_princess.ckpt">
+                   <em>Rain Princess </em> By Leonid Afremov | Style: Bright colors
+                </label>
+           </div>
+          <div class="radio">
+               <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios3" value="scream.ckpt">
+                   <em>The Scream , 1893</em> by Edvard Munch | Style: Expressionist
+               </label>
+           </div>
+          <div class="radio">
+               <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios4" value="udnie.ckpt">
+                   <em>Udnie, Young American Girl , 1913</em> by Francis Picabia | Style: Abstract Art, Cubism
+               </label>
+           </div>
+           <div class="radio">
+               <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios5" value="wave.ckpt">
+                  <em> The Great Wave at Kanagawa , 1829</em> by Hokusai | Style: Japanese Art, Ukiyo-e
+               </label>
+           </div>
+          <div class="radio">
+               <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios6" value="wreck.ckpt">
+                   <em>The Wreck of a Transport Ship , 1810</em> by J.M.W. Turner | Style: Romanticism
+               </label>
+           </div>
+          <button type="submit" class="btn btn-success btn-lg btn-block">Start style transform</button>
 	</form>
     </div>
 </div>
