@@ -19,7 +19,7 @@ def get_rgb_np(img_in):
     return get_img(img_np)
 
 ## Trans image
-def rundeeplearning(img_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
+def rundeeplearning(img_in, checkpoint_dir, batch_size=1):
    
     img = get_rgb_np(img_in) 
     img_shape = get_img(img).shape
@@ -27,9 +27,12 @@ def rundeeplearning(img_in, checkpoint_dir, device_t='/cpu:0', batch_size=1):
 
     g = tf.Graph()
     soft_config = tf.ConfigProto(allow_soft_placement=True)
+    config_mu =tf.ConfigProto(intra_op_parallelism_threads=16)
+    config_ = tf.ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1, \
+                        allow_soft_placement=True, device_count = {'CPU': 1})   
     soft_config.gpu_options.allow_growth = True
-    with g.as_default(), g.device(device_t), \
-            tf.Session(config=soft_config) as sess:
+    with g.as_default(), \
+            tf.Session(config=config_mu) as sess:
         batch_shape = (batch_size,) + img_shape
         img_placeholder = tf.placeholder(tf.float32, shape=batch_shape,
                                          name='img_placeholder')
