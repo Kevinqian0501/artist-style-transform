@@ -84,11 +84,12 @@ def main():
         style = "cloud"
 
         img_stream = img.read()
+        data = fetch_img(img_stream, style)	        
+
         filename = img.filename
         content_type = img.content_type
         img_url, bucket_filepath = upload_image_file(img_stream, filename, content_type)
 
-        data = fetch_img(img_stream, style)	        
 	new_img = BytesIO(data)
         new_img_stream = new_img.read()
         new_filename = filename.split('.')[0] + '-' + style + '.' + filename.split('.')[1]
