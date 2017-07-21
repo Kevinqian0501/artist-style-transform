@@ -82,7 +82,7 @@ def main():
     if request.method == 'POST':
         img = request.files.get('image')
         style = 'la_muse.ckpt'
-
+        style = request.form.get('optionsRadios')
         img_stream = img.read()
         filename = img.filename
         content_type = img.content_type
