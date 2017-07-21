@@ -2,11 +2,23 @@
 
 {% block content %}
 
-  <div>
-    {% if new_image_url %}
-      <img class="book-image" src="{{new_image_url}}">
-    {% else %}
-      <img class="book-image" src="http://placekitten.com/g/128/192">
-    {% endif %}
-  </div>
+<div class='media'>
+            <div class="col-lg-6 col-xs-6">
+              <a href="#">
+                    {% if image_url %}
+                      <img class="image-object img-responsive" src="{{image_url}}">
+                    {% endif %}
+              </a>
+            </div>
+
+            <div class="col-lg-6 col-xs-6">
+              <a href="#">
+                    {% if new_image_url %}
+                      <img class="image-object img-responsive" src="{{new_image_url}}">
+                    {% else %}
+                      <img class="book-image" src="http://placekitten.com/g/128/192">
+                    {% endif %}
+              </a>
+            </div>
+          </div>
 {% endblock %}
