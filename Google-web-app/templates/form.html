@@ -6,11 +6,47 @@
 	<h3>{{action}}Please select an image</h3>
 	<form method="POST" enctype="multipart/form-data">
  	 <div class="form-group">
- 	   <label for="image">Image</label>
 	    <input type="file" name="image" id="image" class="form-control"/>
 	  </div>
-
-	  <button type="submit" class="btn btn-success">Run</button>
+          <div>
+        <p>Please select a painting style </p>
+          <div class="radio">
+                  <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="la_muse.ckpt" checked>
+                   <em>La muse , 1935, by Pablo Picasso</em> , style: Cubism, Surrealism 
+                </label>
+           </div>
+           <div class="radio">
+                  <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="rain_princess.ckpt">
+                   <em>Rain Princess, by Leonid Afremov</em> , style: Bright colors
+                </label>
+           </div>
+          <div class="radio">
+               <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios3" value="scream.ckpt">
+                   <em>The Scream , 1893, by Edvard Munch</em> , style: Expressionist
+               </label>
+           </div>
+          <div class="radio">
+               <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios4" value="udnie.ckpt">
+                   <em>Udnie, Young American Girl, 1913, by Francis Picabia</em> , style: Abstract Art, Cubism
+               </label>
+           </div>
+           <div class="radio">
+               <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios5" value="wave.ckpt">
+                  <em> The Great Wave at Kanagawa, 1829,  by Hokusai</em> , style: Japanese Art, Ukiyo-e
+               </label>
+           </div>
+          <div class="radio">
+               <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios6" value="wreck.ckpt">
+                   <em>The Wreck of a Transport Ship , 1810</em> by J.M.W. Turner , style: Romanticism
+               </label>
+           </div>
+          <button type="submit" class="btn btn-success btn-lg btn-block">Start style transform</button>
 	</form>
     </div>
 </div>

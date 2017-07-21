@@ -43,7 +43,7 @@ def upload_image_file(stream, filename, content_type):
 def fetch_img(img_stream, style):
     # img_stream = Image.open(BytesIO(img_stream)).convert('RGB')
     server_url = current_app.config['PREDICTION_SERVICE_URL']
-    req = urllib2.Request(server_url, json.dumps({'data': base64.b64encode(img_stream),'style':'la_muse.ckpt'}),
+    req = urllib2.Request(server_url, json.dumps({'data': base64.b64encode(img_stream),'style': style}),
                           {'Content-Type': 'application/json'})
     data = {}
     try:
@@ -61,7 +61,7 @@ def fetch_img(img_stream, style):
 def dump_result(bucket_filepath, image_url, new_image_url, style):
     timestamp = int(time.time())
     filename = bucket_filepath.split('/')[-1].split('.')[0]
-
+    style = style.split('.')[0]
     result = {
         filename: {
             'style' : style,
@@ -77,36 +77,59 @@ def get_firebase_url(database):
     logging.info('jirebase url is logging.info %s', url)
     return url
 
+def fetch_recent_results():
+    url = '%s?orderby="create_timestamp"&limittoLast=10&print=pretty' % get_firebase_url('results')
+    content = fb.firebase_get(url)
+    results = []
+    if not content:
+        return results
+    for key, value in content.iteritems():
+        logging.info('key %s ', key)
+        #logging.info('time stamp  %d, float %f', int(value['create_timestamp']), value['create_timestamp'])
+        create_date = datetime.datetime.fromtimestamp(value['create_timestamp'])
+        create_date = pytz.utc.localize(create_date)
+        value['create_date'] = create_date.astimezone(pytz.timezone('America/Chicago')).strftime("%Y-%m-%d %H:%M:%S")
+        results.append(value)
+
+    results = sorted(results, key=lambda r: r['create_date'], reverse=True)
+    for result in results:
+        logging.info(result['create_date'])
+    return results
+
 @app.route('/', methods=['GET', 'POST'])
 def main():
+    recent_results = fetch_recent_results()
     if request.method == 'POST':
         img = request.files.get('image')
-        style = "cloud"
-
+        style = 'la_muse.ckpt'
+        style = request.form.get('optionsRadios')
         img_stream = img.read()
-        data = fetch_img(img_stream, style)	        
-
         filename = img.filename
         content_type = img.content_type
+
+        #fetch new style img data from service
+        data = fetch_img(img_stream, style)	        
+
+        #store cobtent img in bucket
         img_url, bucket_filepath = upload_image_file(img_stream, filename, content_type)
 
+        #store style img in bucket
 	new_img = BytesIO(data)
         new_img_stream = new_img.read()
-        new_filename = filename.split('.')[0] + '-' + style + '.' + filename.split('.')[1]
+        new_filename = style.split('.')[0] + '-'+ filename
         new_content_type = content_type
         new_img_url, new_bucket_filepath = upload_image_file(new_img_stream, new_filename, new_content_type)
 
+        #store imgs url and timestampe in firebase
     	result = dump_result(bucket_filepath, img_url, new_img_url, style)
-
     	content = fb.firebase_patch(get_firebase_url('results'), result)
 
-        #return render_template('view.html', image_url=img_url, predictions=predictions['predictions'])
         return render_template(
             'view.html', 
             image_url=img_url, new_image_url = new_img_url,
-            style = style
+            style = style.split('.')[0]
         )    
-    return render_template('form.html')
+    return render_template('form.html',recent_results = recent_results)
 
 
 @app.errorhandler(500)
