@@ -61,7 +61,7 @@ def fetch_img(img_stream, style):
 def dump_result(bucket_filepath, image_url, new_image_url, style):
     timestamp = int(time.time())
     filename = bucket_filepath.split('/')[-1].split('.')[0]
-
+    style = style.split('.')[0]
     result = {
         filename: {
             'style' : style,
@@ -77,8 +77,28 @@ def get_firebase_url(database):
     logging.info('jirebase url is logging.info %s', url)
     return url
 
+def fetch_recent_results():
+    url = '%s?orderby="create_timestamp"&limittoLast=10&print=pretty' % get_firebase_url('results')
+    content = fb.firebase_get(url)
+    results = []
+    if not content:
+        return results
+    for key, value in content.iteritems():
+        logging.info('key %s ', key)
+        #logging.info('time stamp  %d, float %f', int(value['create_timestamp']), value['create_timestamp'])
+        create_date = datetime.datetime.fromtimestamp(value['create_timestamp'])
+        create_date = pytz.utc.localize(create_date)
+        value['create_date'] = create_date.astimezone(pytz.timezone('America/Chicago')).strftime("%Y-%m-%d %H:%M:%S")
+        results.append(value)
+
+    results = sorted(results, key=lambda r: r['create_date'], reverse=True)
+    for result in results:
+        logging.info(result['create_date'])
+    return results
+
 @app.route('/', methods=['GET', 'POST'])
 def main():
+    recent_results = fetch_recent_results()
     if request.method == 'POST':
         img = request.files.get('image')
         style = 'la_muse.ckpt'
@@ -109,7 +129,7 @@ def main():
             image_url=img_url, new_image_url = new_img_url,
             style = style.split('.')[0]
         )    
-    return render_template('form.html')
+    return render_template('form.html',recent_results = recent_results)
 
 
 @app.errorhandler(500)

@@ -1,81 +1,128 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Real time style transform</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://blackrockdigital.github.io/startbootstrap-grayscale/vendor/font-awesome/css/font-awesome.min.css">
-    <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-    <script type="text/javascript" src= "assets/js/firebase.js"></script>
-  </head>
-  <body>
-      <nav class="navbar navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="/" class="navbar-brand">Artist style transform</a>
-          </div>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Artist style transform</title>   
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://blackrockdigital.github.io/startbootstrap-grayscale/vendor/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/base.css">
+        <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+        <script type="text/javascript" src= "assets/js/firebase.js"></script>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-picture"></span> Artist style transform</a>
+            </div>
           
-          <div class="collapse navbar-collapse" id="bs-nav-demo">
-            <ul class="nav navbar-nav">
-              <li><a href="/">Home</a></li>
-              <li>
-              <a href="https://github.com/Liuqian0501/artist-style-transform/">
-                    <i class="fa fa-github fa-fw"></i>
-                    <span class="network-name">Github</span>
-              </a>
+            <div class="collapse navbar-collapse" id="bs-nav-demo">
+              <ul class="nav navbar-nav">
+                <li><a href="/"><span class="fa fa-home fa-fw"></span> Home</a></li>
+                <li><a href="https://github.com/Liuqian0501/artist-style-transform/"><span class="fa fa-github fa-fw"></span> Github</a></li>
+                <li><a href="https://www.linkedin.com/in/qian-liu/"><span class="fa fa-linkedin-square fa-fw"></span> Linkdin</a></li>
+              </ul>
 
-              </li>
-              <li><a href="https://www.linkedin.com/in/qian-liu/">
-                    <i class="fa fa-linkedin-square fa-fw"></i>
-                    <span class="network-name">Linkdin</span>
-                  </a>
-              </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-              <li><a>Personal website</a></li>
-            </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a>Personal website</a></li>
+              </ul>
+            </div>
           </div>
+        </nav>
+
+        <div class="container">
+          <div class="jumbotron jumbotron-fluid">
+            <h2><i class="fa fa-camera-retro"></i> Artist painting style transform </h2>
+            <p>Add styles from famous paintings to any photo in a fraction of a second! The output will be resize to 400 x 400.</p> 
+
+            <p><strong>you have 6 painting style to choose from </strong></p>
+            <div class="row"> 
+                <div class="col-lg-4  col-md-4 col-sm-6 col-xm-6"> 
+                    <a href="#" class="thumbnail"> 
+                      <img src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?201703170823">
+                   </a> 
+               </div> 
+
+                <div class="col-lg-4  col-md-4 col-sm-6 col-xm-6"> 
+                    <a href="#" class="thumbnail"> 
+                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
+                   </a> 
+               </div> 
+
+                <div class="col-lg-4  col-md-4 col-sm-6 col-xm-6"> 
+                    <a href="#" class="thumbnail"> 
+                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
+                    </a> 
+               </div> 
+
+               <div class="col-lg-4  col-md-4 col-sm-6 col-xm-6"> 
+                    <a href="#" class="thumbnail"> 
+                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
+                   </a> 
+               </div> 
+
+                <div class="col-lg-4  col-md-4 col-sm-6 col-xm-6"> 
+                    <a href="#" class="thumbnail"> 
+                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
+                   </a> 
+               </div> 
+
+                <div class="col-lg-4  col-mm-4 col-sm-6 col-xm-6"> 
+                    <a href="#" class="thumbnail"> 
+                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
+                   </a> 
+               </div> 
+          </div> 
         </div>
-      </nav>
+      </div>        
 
       <div class="container">
         {% block content %}
         {% endblock %}
       </div>
-  </body>
-  <hr class="separator">
-    <div class="container">
-      {% if recent_results %}
-        {% for result in recent_results %}
-        <div class='media'> 
-          <div class='row'>
-            <div class="col-md-4 col-md-offset-3 col-xs-6">
-              <a href="#">
-                {% if result.image_url %}
-                  <img class="image-object img-responsive" src="{{result.new_image_url}}">
-                {% endif %}
-              </a>
-            </div>
-            <div class="col-md-5 col-xs-6">
-              {% for prediction in result.predictions.predictions %}
-                {{prediction.description}} <b>{{'%0.2f' % prediction.probability}}%</b><br/>
-              {% endfor %}
-              <h5>{{result.create_date}}</h5>
-            </div>
-          </div>   
-        </div> 
-        {% endfor %}
-      {% endif %}
-    </div>
 
-  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+      <hr class="separator">
+      <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+        <h2>Recent result</h2>
+        {% if recent_results %}
+          {% for result in recent_results %}
+          <div class='media'>
+            <h3>Style: {{result.style}};   create date: {{result.create_date}} </h3> 
+            <div class='row'>
+              <div class="col-lg-6 col-xs-6">
+                <a href="#">
+                  {% if result.image_url %}
+                    <img class="image-object img-responsive" src="{{result.image_url}}">
+                  {% endif %}
+                </a>
+              </div>
+              <div class="col-lg-6 col-xs-6">
+                <a href="#">
+                  {% if result.new_image_url %}
+                    <img class="image-object img-responsive" src="{{result.new_image_url}}">
+                  {% endif %}
+                </a>
+              </div>
+            </div>   
+          </div> 
+          {% endfor %}
+        {% endif %}
+      </div>
+      </div>
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </body>
 </html>
+
