@@ -9,7 +9,7 @@
         <!-- Bootstrap -->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://blackrockdigital.github.io/startbootstrap-grayscale/vendor/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/base.css">
+        <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/realtimestyletrans.appspot.com/css/base.css">
         <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
         <script type="text/javascript" src= "assets/js/firebase.js"></script>
     </head>
@@ -45,84 +45,44 @@
           <div class="jumbotron jumbotron-fluid">
             <h2><i class="fa fa-camera-retro"></i> Artist painting style transform </h2>
             <p>Add styles from famous paintings to any photo in a fraction of a second! The output will be resize to 400 x 400.</p> 
-
-            <p><strong>you have 6 painting style to choose from </strong></p>
-            <div class="row"> 
-                <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
-                    <a href="#" class="thumbnail"> 
-                      <img src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?201703170823">
-                   </a> 
-               </div> 
-              
-                <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
-                    <a href="#" class="thumbnail"> 
-                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
-                   </a> 
-               </div> 
-
-                <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
-                    <a href="#" class="thumbnail"> 
-                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
-                    </a> 
-               </div> 
-
-               <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
-                    <a href="#" class="thumbnail"> 
-                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
-                   </a> 
-               </div> 
-
-                <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
-                    <a href="#" class="thumbnail"> 
-                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
-                   </a> 
-               </div> 
-
-                <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
-                    <a href="#" class="thumbnail"> 
-                      <img src="https://yt3.ggpht.com/-KdgJnz1HIdQ/AAAAAAAAAAI/AAAAAAAAAAA/4vVN7slJqj4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" >
-                   </a> 
-               </div> 
-          </div> 
         </div>
-      </div>        
+              
 
-      <div class="container">
-        {% block content %}
-        {% endblock %}
-      </div>
+        <div class="container">
+          {% block content %}
+          {% endblock %}
+        </div>
 
-      <hr class="separator">
-      <div class="container">
-        <div class="jumbotron jumbotron-fluid">
-        <h2>Recent result</h2>
-        {% if recent_results %}
-          {% for result in recent_results %}
-          <div class='media'>
-            <h3>Style: {{result.style}};   create date: {{result.create_date}} </h3> 
-            <div class='row'>
-              <div class="col-lg-6 col-xs-6">
-                <a href="#">
-                  {% if result.image_url %}
-                    <img class="image-object img-responsive" src="{{result.image_url}}">
-                  {% endif %}
-                </a>
-              </div>
-              <div class="col-lg-6 col-xs-6">
-                <a href="#">
-                  {% if result.new_image_url %}
-                    <img class="image-object img-responsive" src="{{result.new_image_url}}">
-                  {% endif %}
-                </a>
-              </div>
-            </div>   
-          </div> 
-          {% endfor %}
-        {% endif %}
-      </div>
+        <hr class="separator">
+        <div class="container">
+          <div class="jumbotron jumbotron-fluid">
+          <h2>Recent result</h2>
+          {% if recent_results %}
+            {% for result in recent_results %}
+            <div class='media'>
+              <h3>Style: {{result.style}};   create date: {{result.create_date}} </h3> 
+              <div class='row'>
+                <div class="col-lg-6 col-xs-6">
+                  <a href="#">
+                    {% if result.image_url %}
+                      <img class="image-object img-responsive" src="{{result.image_url}}">
+                    {% endif %}
+                  </a>
+                </div>
+                <div class="col-lg-6 col-xs-6">
+                  <a href="#">
+                    {% if result.new_image_url %}
+                      <img class="image-object img-responsive" src="{{result.new_image_url}}">
+                    {% endif %}
+                  </a>
+                </div>
+              </div>   
+            </div> 
+            {% endfor %}
+          {% endif %}
+        </div>
       </div>
         <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </body>
 </html>
-

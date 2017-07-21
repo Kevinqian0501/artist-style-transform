@@ -1,54 +1,77 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row col-md-offset-3">
-    <div class="col-md-9">
-	<h3>{{action}}Please select an image</h3>
-	<form method="POST" enctype="multipart/form-data">
- 	 <div class="form-group">
-	    <input type="file" name="image" id="image" class="form-control"/>
-	  </div>
-          <div>
-        <p>Please select a painting style </p>
-          <div class="radio">
-                  <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="la_muse.ckpt" checked>
-                   <em>La muse , 1935, by Pablo Picasso</em> , style: Cubism, Surrealism 
-                </label>
-           </div>
-           <div class="radio">
-                  <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="rain_princess.ckpt">
-                   <em>Rain Princess, by Leonid Afremov</em> , style: Bright colors
-                </label>
-           </div>
-          <div class="radio">
-               <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios3" value="scream.ckpt">
-                   <em>The Scream , 1893, by Edvard Munch</em> , style: Expressionist
-               </label>
-           </div>
-          <div class="radio">
-               <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios4" value="udnie.ckpt">
-                   <em>Udnie, Young American Girl, 1913, by Francis Picabia</em> , style: Abstract Art, Cubism
-               </label>
-           </div>
-           <div class="radio">
-               <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios5" value="wave.ckpt">
-                  <em> The Great Wave at Kanagawa, 1829,  by Hokusai</em> , style: Japanese Art, Ukiyo-e
-               </label>
-           </div>
-          <div class="radio">
-               <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios6" value="wreck.ckpt">
-                   <em>The Wreck of a Transport Ship , 1810</em> by J.M.W. Turner , style: Romanticism
-               </label>
-           </div>
-          <button type="submit" class="btn btn-success btn-lg btn-block">Start style transform</button>
-	</form>
-    </div>
-</div>
+
+<div class="container">
+    <h3>Step 1: upload an image</h3>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" id="image" class="form-control input-lg">
+    
+
+    <h3>Step 2: choose one style: </h3>
+    <div class="row"> 
+        <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
+             <label class="text-center radio-thumbnail">
+                <input type="radio" name="radios" id="optionsRadios1" value="la_muse.ckpt" checked>
+                <span class="thumbnail">
+                  <img src="https://storage.googleapis.com/realtimestyletrans/images/a-muse-1935.jpg" class="img-responsive" >
+                  <span>A muse, 1935</span>
+                </span>
+             </label>
+       </div> 
+      
+        <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
+            <label class="text-center radio-thumbnail">
+                <input type="radio" name="radios" id="optionsRadios2" value="rain_princess.ckpt">
+                <span class="thumbnail">
+                  <img src="https://storage.googleapis.com/realtimestyletrans/images/rain-princess.jpeg" class="img-responsive"  >
+                  <span>Rain Princess</span>
+                </span>
+            </label>
+       </div> 
+
+        <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
+            <label class="text-center radio-thumbnail">
+                <input type="radio" name="radios" id="optionsRadios3" value="scream.ckpt">
+                <span class="thumbnail">
+                  <img src="https://storage.googleapis.com/realtimestyletrans/images/the-scream.jpg" class="img-responsive" >
+                  <span>The scream</span>
+                </span>
+            </label>
+       </div> 
+
+       <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
+            <label class="text-center radio-thumbnail">
+                <input type="radio" name="radios" id="optionsRadios4" value="udnie.ckpt">
+                <span class="thumbnail">
+                  <img src="https://storage.googleapis.com/realtimestyletrans/images/udnie.jpg" class="img-responsive" >
+                  <span>Udnie</span>
+                </span>
+             </label>
+       </div> 
+
+        <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
+            <label class="text-center radio-thumbnail">
+                <input type="radio" name="radios" id="optionsRadios5" value="wave.ckpt">
+                <span class="thumbnail">
+                  <img src="https://storage.googleapis.com/realtimestyletrans/images/the-great-wave .jpg" class="img-responsive" >
+                  <span>the great wave</span>
+                </span>
+            </label>
+       </div> 
+
+        <div class="col-lg-4  col-md-4 col-sm-6 col-xs-6"> 
+            <label class="text-center radio-thumbnail">
+                <input type="radio" name="radios" id="optionsRadios6" value="wreck.ckpt">
+                <span class="thumbnail">
+                  <img src="https://storage.googleapis.com/realtimestyletrans/images/wreck.jpg" class="img-responsive" >
+                  <span>wreck</span>
+                </span>
+            </label> 
+       </div> 
+  </div> 
+  <button type="submit" class="btn btn-success btn-lg btn-block">Start style transform</button>
+  </form>
+</div>  
 
 {% endblock %}

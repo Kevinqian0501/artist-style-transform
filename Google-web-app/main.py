@@ -102,7 +102,7 @@ def main():
     if request.method == 'POST':
         img = request.files.get('image')
         style = 'la_muse.ckpt'
-        style = request.form.get('optionsRadios')
+        style = request.form.get('radios')
         img_stream = img.read()
         filename = img.filename
         content_type = img.content_type
@@ -127,7 +127,7 @@ def main():
         return render_template(
             'view.html', 
             image_url=img_url, new_image_url = new_img_url,
-            style = style.split('.')[0]
+            style = style.split('.')[0],recent_results=recent_results
         )    
     return render_template('form.html',recent_results = recent_results)
 
